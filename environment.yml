@@ -1,0 +1,8 @@
+name: xdggs_dggal
+channels:
+  - conda-forge
+dependencies:
+  - python==3.12
+  - poetry
+  - pip:
+    - dggal

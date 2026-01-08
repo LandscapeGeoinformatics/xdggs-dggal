@@ -1,0 +1,19 @@
+[project]
+name = "xdggs-dggal"
+version = "0.1.0"
+description = "xdggs with dggal libarary"
+authors = [
+    {name = "Your Name",email = "you@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "xdggs (>=0.5.0,<0.6.0)",
+    "shapely (>=2.1.2,<3.0.0)",
+    "xarray[io] (>=2025.12.0,<2026.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
