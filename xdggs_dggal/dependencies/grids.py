@@ -7,12 +7,15 @@ import shapely
 from dggal import Application, pydggal_setup, CRS, ogc
 from dggal import IVEA7H, ISEA7H_Z7, rHEALPix, HEALPix
 
-grid_config = {'IVEA7H': IVEA7H,
-               'RHEALPIX': rHEALPix,
-               'ISEA7H_Z7': ISEA7H_Z7,
-               'HEALPIX': HEALPix}
+grid_config = {'IVEA7H.DGGAL': IVEA7H,
+               'RHEALPIX.DGGAL': rHEALPix,
+               'ISEA7HZ7.DGGAL': ISEA7H_Z7,
+               'HEALPIX.DGGAL': HEALPix}
 
 
+# because the DGGSInfo is a frozen dataclass, its attributes can't be
+# assigned once it is instantiated. So this additional class helps to
+# create the grid before the DGGALInfo is created.
 class DGGALGrid():
 
     def __init__(self, grid_name):
