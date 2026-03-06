@@ -6,7 +6,7 @@ from xdggs.index import DGGSIndex
 from xdggs.grid import DGGSInfo
 from xdggs.utils import register_dggs, _extract_cell_id_variable, GRID_REGISTRY
 from typing import Any
-from xdggs_dggal.dependencies.grids import DGGALInfo, grid_config
+from xdggs_dggal.dependences.grids import DGGALInfo, grid_config
 
 
 @register_dggs("ivea7h.dggal")

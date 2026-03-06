@@ -3,8 +3,9 @@ from typing import Any, Self
 from dataclasses import dataclass
 import numpy as np
 import shapely
+import geopandas as gpd
 
-from dggal import Application, pydggal_setup, CRS, ogc
+from dggal import Application, pydggal_setup, GeoPoint
 from dggal import IVEA7H, ISEA7H_Z7, rHEALPix, HEALPix
 
 grid_config = {'IVEA7H.DGGAL': IVEA7H,
@@ -26,7 +27,7 @@ class DGGALGrid():
         self.mygrid = grid_config[grid_name]()
         self.vgetZoneWGS84Centroid = np.vectorize(self.mygrid.getZoneWGS84Centroid)
         self.vgetZoneRefinedWGS84Vertices = np.vectorize(self.mygrid.getZoneRefinedWGS84Vertices)
-        self.vgetZoneFromCRSCentroid = np.vectorize(self.mygrid.getZoneFromCRSCentroid, excluded=['level', 'crs'])
+        self.vgetZoneFromWGS84Centroid = np.vectorize(self.mygrid.getZoneFromWGS84Centroid, excluded=['level'])
         self.vgetZoneFromTextID = np.vectorize(self.mygrid.getZoneFromTextID)
         self.vgetZoneTextID = np.vectorize(self.mygrid.getZoneTextID)
         self.vgetZoneRefinedWGS84Vertices = np.vectorize(self.mygrid.getZoneRefinedWGS84Vertices, excluded=['edgeRefinement'])
@@ -63,14 +64,12 @@ class DGGALInfo(DGGSInfo):
 
     def geographic2cell_ids(self, lon, lat):
         assert len(lon) == len(lat), f"{__name__} the length of lon and lat are not equal"
-        points = np.c_[lon.reval(), lat.reval()]
-        cell_ids = self.mygrid.vgetZoneFromCRSCentroid(points, self.level, CRS(ogc, 84))
-        cell_ids = self.mygrid.vgetZoneTextID(cell_ids)
+        points = [GeoPoint(y, x) for y, x in zip(lat, lon)]
+        cell_ids = self.mygrid.vgetZoneFromWGS84Centroid(self.level, points)
+        cell_ids = [int(cid) for cid in cell_ids]
         return cell_ids
 
     def cell_boundaries(self, cell_ids, backend="shapely"):
-        if (backend != "shapely"):
-            raise NotImplementedError("Only shapely is implemeneted")
         try:
             int(cell_ids[0])
         except ValueError:
@@ -84,6 +83,10 @@ class DGGALInfo(DGGSInfo):
             # to make the polygon a closed linestring
             coordinates.append((vertices[0].lon, vertices[0].lat))
             zones_polygons.append(shapely.Polygon(coordinates))
+        if (backend == "geoarrow"):
+            tmp = gpd.GeoDataFrame({'data': [0] * len(zones_polygons)}, geometry=zones_polygons, crs='wgs84')
+            return tmp.geometry.to_arrow()
+
         return zones_polygons
 
     def zoom_to(self, cell_ids, level: int):
