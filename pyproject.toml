@@ -1,9 +1,10 @@
 [project]
 name = "xdggs-dggal"
 version = "0.1.0"
-description = "xdggs with dggal libarary"
+description = "A plugin for Xarray-xdggs that implements dggal as DGGS provider"
 authors = [
-    {name = "Your Name",email = "you@example.com"}
+ 	{name = "Wai Tik, Chan", email="wai.tik.chan@ut.ee"},
+ 	{name = "Alexander Kmoch", email="alexander.kmoch@ut.ee"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
