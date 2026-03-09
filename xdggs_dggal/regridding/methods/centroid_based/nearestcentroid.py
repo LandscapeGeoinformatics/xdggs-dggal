@@ -8,7 +8,7 @@ warnings.filterwarnings("ignore")
 
 
 @register_regridding_method
-def nearestpoint(mygrid, data: xr.Dataset, original_crs, coordinates, geoextent, refinement_level):
+def nearestcentroid(mygrid, data: xr.Dataset, original_crs, coordinates, geoextent, refinement_level):
 
     data_centroids = np.concatenate([data['zone_id'][coordinates[0]].values.reshape(-1, 1),
                                      data['zone_id'][coordinates[1]].values.reshape(-1, 1)], axis=-1)
