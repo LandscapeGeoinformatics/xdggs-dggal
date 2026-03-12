@@ -1,6 +1,6 @@
 [project]
 name = "xdggs-dggal"
-version = "0.1.0"
+version = "0.1.1"
 description = "A plugin for Xarray-xdggs that implements dggal as DGGS provider"
 authors = [
  	{name = "Wai Tik, Chan", email="wai.tik.chan@ut.ee"},
