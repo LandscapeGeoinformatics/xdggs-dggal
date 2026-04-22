@@ -1,22 +1,79 @@
 [project]
 name = "xdggs-dggal"
-version = "0.1.1"
+version = "0.1.2"
 description = "A plugin for Xarray-xdggs that implements dggal as DGGS provider"
 authors = [
  	{name = "Wai Tik, Chan", email="wai.tik.chan@ut.ee"},
  	{name = "Alexander Kmoch", email="alexander.kmoch@ut.ee"}
 ]
 readme = "README.md"
+license = {text = "MIT"}
 requires-python = ">=3.12"
+keywords = ["dggs", "xarray", "xdggs", "dggal", "geospatial", "discrete-global-grid"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: GIS",
+]
 dependencies = [
     "xdggs (>=0.5.0,<0.6.0)",
     "shapely (>=2.1.2,<3.0.0)",
-    "xarray[io] (>=2025.12.0,<2026.0.0)",
+    "xarray (>=2025.12.0,<2026.0.0)",
     "geopandas (>=1.1.2,<2.0.0)",
-    "pyarrow (>=23.0.1,<24.0.0)"
+    "pyarrow (>=23.0.1,<24.0.0)",
+    "dggal",
 ]
+
+[project.urls]
+Homepage = "https://github.com/LandscapeGeoinformatics/xdggs-dggal"
+Issues = "https://github.com/LandscapeGeoinformatics/xdggs-dggal/issues"
 
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["xdggs_dggal"]
+
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "linux-64"]
+
+[tool.pixi.dependencies]
+python = "3.12.*"
+shapely = ">=2.1.2,<3"
+geopandas = ">=1.1.2,<2"
+xarray = ">=2025.12.0,<2026"
+pyarrow = ">=23.0.1,<24"
+
+[tool.pixi.pypi-dependencies]
+xdggs-dggal = { path = ".", editable = true }
+xdggs = ">=0.5.0,<0.6.0"
+dggal = "*"
+# pys2index is needed only for the `nearestcentroid` regridder.
+# It has no macOS arm64 wheel on PyPI and its conda-forge build conflicts
+# with Python 3.12 via old OpenSSL. Install manually if needed, or we can
+# replace its single use (nearest-neighbour search) with scipy.
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.pixi.feature.dev.dependencies]
+pytest = "*"
+python-build = "*"
+twine = "*"
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+dev = { features = ["dev"], solve-group = "default" }
+
+[tool.pixi.tasks]
+test = "pytest"
+build = "python -m build"
+publish = "twine upload dist/*"

@@ -21,7 +21,7 @@ class DGGALGrid():
 
     def __init__(self, grid_name):
         if (grid_name.upper() not in grid_config.keys()):
-            raise ValueError(f'{grid_name.uppder()} is not supported by dggal')
+            raise ValueError(f'{grid_name.upper()} is not supported by dggal')
         self.app = Application(appGlobals=globals())
         pydggal_setup(self.app)
         self.mygrid = grid_config[grid_name]()

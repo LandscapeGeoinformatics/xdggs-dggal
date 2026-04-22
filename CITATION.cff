@@ -8,7 +8,7 @@ authors:
   given-names: "Alexander"
   orcid: "https://orcid.org/0000-0003-4386-4450"
 title: "xdggs-dggal: A plugin for Xarray-xdggs that implements dggal as DGGS provider"
-version: 0.1.0
+version: 0.1.2
 doi: 10.5281/zenodo.xxx
-date-released: 2025-06-24
+date-released: 2026-04-22
 url: "https://github.com/LandscapeGeoinformatics/xdggs-dggal"
