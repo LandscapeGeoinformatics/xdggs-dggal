@@ -6659,8 +6659,8 @@ packages:
   requires_python: '>=3.11'
 - pypi: ./
   name: xdggs-dggal
-  version: 0.1.1
-  sha256: 95047e4b659d15269b0801b41ec0fec6350ea5f814c3667b4fae727e71a2fd62
+  version: 0.1.2
+  sha256: 55c3e06fc6eb0d317b3241f5e6544c66fb872bf565243badf8bcd3400dd1a721
   requires_dist:
   - xdggs>=0.5.0,<0.6.0
   - shapely>=2.1.2,<3.0.0
