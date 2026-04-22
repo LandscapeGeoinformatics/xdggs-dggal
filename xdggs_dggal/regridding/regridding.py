@@ -4,7 +4,6 @@ import xarray as xr
 import shapely
 import numpy as np
 import geopandas as gpd
-import tempfile
 
 from dggal import GeoExtent, GeoPoint, Application, pydggal_setup
 

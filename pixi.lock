@@ -6660,13 +6660,14 @@ packages:
 - pypi: ./
   name: xdggs-dggal
   version: 0.1.1
-  sha256: e920ece368324e9576353491e1d4325497c17fbea162b14a57a1d08c4041daa5
+  sha256: 95047e4b659d15269b0801b41ec0fec6350ea5f814c3667b4fae727e71a2fd62
   requires_dist:
   - xdggs>=0.5.0,<0.6.0
   - shapely>=2.1.2,<3.0.0
-  - xarray[io]>=2025.12.0,<2026.0.0
+  - xarray>=2025.12.0,<2026.0.0
   - geopandas>=1.1.2,<2.0.0
   - pyarrow>=23.0.1,<24.0.0
+  - dggal
   requires_python: '>=3.12'
   editable: true
 - conda: https://conda.anaconda.org/conda-forge/linux-64/xerces-c-3.3.0-hd9031aa_1.conda
